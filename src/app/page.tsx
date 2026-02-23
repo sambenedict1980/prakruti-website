@@ -165,81 +165,125 @@ function GalleryCarousel() {
   );
 }
 
+/* ── Hero slides ── */
+const heroSlides = [
+  { src: "/images/prakruti-hero.png", alt: "Prakruti — Nurturing Nature, Protecting Paws" },
+  { src: "/images/birb.jpeg", alt: "Campus wildlife — bird near water bowl" },
+  { src: "/images/cutepuppy.jpeg", alt: "Adorable campus puppy" },
+  { src: "/images/WhatsApp-Image-2026-02-23-at-5.20.08-PM.jpeg", alt: "Prakruti team celebration" },
+  { src: "/images/feedingpuppies.jpeg", alt: "Daily feeding rounds" },
+];
+
+/* ── Hero Carousel ── */
+function HeroCarousel() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((c) => (c + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section className="relative flex items-center justify-center min-h-[90vh] overflow-hidden">
+      {/* Background slides */}
+      {heroSlides.map((slide, i) => (
+        <div
+          key={slide.src}
+          className="absolute inset-0 z-0 transition-opacity duration-1000 ease-in-out"
+          style={{ opacity: i === current ? 1 : 0 }}
+        >
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            fill
+            className="object-cover"
+            priority={i === 0}
+            sizes="100vw"
+          />
+        </div>
+      ))}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/40 to-forest/80" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight"
+        >
+          Prakruti: Nurturing Nature,{" "}
+          <span className="text-sage-light">Protecting Paws</span> at NIT
+          Trichy
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-4 text-lg md:text-xl text-white/80 max-w-2xl mx-auto"
+        >
+          The official Nature and Animal Welfare Club.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <button
+            onClick={() => document.querySelector(".sos-glow")?.closest("button")?.click()}
+            className="flex items-center gap-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 shadow-lg transition-colors cursor-pointer"
+          >
+            <AlertTriangle className="h-5 w-5" />
+            Report Emergency
+          </button>
+          <Link
+            href="/get-involved"
+            className="flex items-center gap-2 rounded-xl bg-sage hover:bg-sage-dark text-white font-semibold px-6 py-3 shadow-lg transition-colors"
+          >
+            Join the Movement
+            <ArrowRight className="h-5 w-5" />
+          </Link>
+        </motion.div>
+      </div>
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+        {heroSlides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`h-2.5 rounded-full transition-all cursor-pointer ${i === current ? "w-8 bg-white" : "w-2.5 bg-white/40 hover:bg-white/60"
+              }`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Scroll hint */}
+      <motion.div
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
+      >
+        <div className="w-6 h-10 rounded-full border-2 border-white/40 flex justify-center pt-2">
+          <div className="w-1.5 h-3 rounded-full bg-white/60" />
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
 /* ── Home Page ── */
 export default function Home() {
   return (
     <>
-      {/* ── Hero ── */}
-      <section className="relative flex items-center justify-center min-h-[90vh] overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/birb.jpeg"
-            alt="Campus wildlife — bird near water bowl"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-forest/80" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight"
-          >
-            Prakruti: Nurturing Nature,{" "}
-            <span className="text-sage-light">Protecting Paws</span> at NIT
-            Trichy
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-4 text-lg md:text-xl text-white/80 max-w-2xl mx-auto"
-          >
-            The official Nature and Animal Welfare Club.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <button
-              onClick={() => document.querySelector(".sos-glow")?.closest("button")?.click()}
-              className="flex items-center gap-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 shadow-lg transition-colors cursor-pointer"
-            >
-              <AlertTriangle className="h-5 w-5" />
-              Report Emergency
-            </button>
-            <Link
-              href="/get-involved"
-              className="flex items-center gap-2 rounded-xl bg-sage hover:bg-sage-dark text-white font-semibold px-6 py-3 shadow-lg transition-colors"
-            >
-              Join the Movement
-              <ArrowRight className="h-5 w-5" />
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Scroll hint */}
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        >
-          <div className="w-6 h-10 rounded-full border-2 border-white/40 flex justify-center pt-2">
-            <div className="w-1.5 h-3 rounded-full bg-white/60" />
-          </div>
-        </motion.div>
-      </section>
+      {/* ── Hero Carousel ── */}
+      <HeroCarousel />
 
       {/* ── Instagram Banner ── */}
       <section className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 py-4">

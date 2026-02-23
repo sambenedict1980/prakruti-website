@@ -59,7 +59,7 @@ export const galleryImages: GalleryImage[] = [
 
 // ── Team ──
 export const coreTeam: TeamMember[] = [
-    { name: "Member 1", role: "President", image: "https://picsum.photos/seed/team1/300/300" },
+    { name: "Sriram P", role: "Overall Coordinator", image: "/images/sriram.jpeg" },
     { name: "Member 2", role: "Vice President", image: "https://picsum.photos/seed/team2/300/300" },
     { name: "Member 3", role: "Flora Lead", image: "https://picsum.photos/seed/team3/300/300" },
     { name: "Member 4", role: "Fauna Lead", image: "https://picsum.photos/seed/team4/300/300" },

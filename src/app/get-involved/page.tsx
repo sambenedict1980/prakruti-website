@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Heart, TreeDeciduous, Send, CheckCircle, AlertCircle } from "lucide-react";
 
-const WEB3FORMS_KEY = "YOUR_ACCESS_KEY"; // Replace with real Web3Forms access key
+const WEB3FORMS_KEY = "54283314-f6c8-4bbd-b961-a7df91b5b7f4";
 
 const intentOptions = [
     { value: "", label: "Select intent…" },
